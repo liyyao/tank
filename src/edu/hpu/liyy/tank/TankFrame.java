@@ -1,6 +1,8 @@
 package edu.hpu.liyy.tank;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -13,6 +15,8 @@ public class TankFrame extends Frame {
         setResizable(false);      //是否可改变窗口大小
         setTitle("tank war");
         setVisible(true);
+
+        this.addKeyListener(new MyKeyListener());
 
         //关闭窗口
         addWindowListener(new WindowAdapter() {
@@ -29,5 +33,17 @@ public class TankFrame extends Frame {
         g.fillRect(x, y, 50, 50);       //画出一个黑方块
         x += 10;
         y += 10;
+    }
+
+    class MyKeyListener extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            System.out.println("key pressed");
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            System.out.println("key released");
+        }
     }
 }
