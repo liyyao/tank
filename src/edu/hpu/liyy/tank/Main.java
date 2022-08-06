@@ -2,7 +2,13 @@ package edu.hpu.liyy.tank;
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         TankFrame f = new TankFrame();
+
+        while (true) {
+            Thread.sleep(50);
+            f.repaint();
+        }
     }
+
 }
