@@ -5,17 +5,18 @@ import java.util.Random;
 
 public class Tank {
 
-    private int x, y;
-    private Dir dir = Dir.DOWN;
+    int x, y;
+    Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
     private boolean moving = true;
-    private TankFrame tf = null;
+    TankFrame tf = null;
     private boolean living = true;
     private final Random random = new Random();
-    private Group group = Group.BAD;
+    Group group = Group.BAD;
     public Rectangle rect = new Rectangle();
+    FireStrategy fs;
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
@@ -28,6 +29,17 @@ public class Tank {
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+
+        if (group == Group.GOOD) {
+            String goodFS = (String) PropertyMgr.get("goodFS");
+            try {
+                fs = (FireStrategy) Class.forName(goodFS).newInstance();
+            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            fs = new DefaultFireStrategy();
+        }
     }
 
     public void setDir(Dir dir) {
@@ -114,9 +126,7 @@ public class Tank {
     }
 
     public void fire() {
-        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
+        fs.fire(this);
     }
 
     public void die() {
