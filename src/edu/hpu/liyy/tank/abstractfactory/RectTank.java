@@ -1,11 +1,11 @@
-package edu.hpu.liyy.tank;
+package edu.hpu.liyy.tank.abstractfactory;
 
-import edu.hpu.liyy.tank.abstractfactory.BaseTank;
+import edu.hpu.liyy.tank.*;
 
 import java.awt.*;
 import java.util.Random;
 
-public class Tank extends BaseTank {
+public class RectTank extends BaseTank {
 
     private static final int SPEED = 5;
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
@@ -15,7 +15,7 @@ public class Tank extends BaseTank {
     private final Random random = new Random();
     FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public RectTank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.setX(x);
         this.setY(y);
         this.setDir(dir);
@@ -47,20 +47,10 @@ public class Tank extends BaseTank {
         if (!living) {
             this.getTf().tanks.remove(this);
         }
-        switch (this.getDir()) {
-            case LEFT:
-                g.drawImage(this.getGroup() == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, this.getX(), this.getY(), null);
-                break;
-            case UP:
-                g.drawImage(this.getGroup() == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, this.getX(), this.getY(), null);
-                break;
-            case RIGHT:
-                g.drawImage(this.getGroup() == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, this.getX(), this.getY(), null);
-                break;
-            case DOWN:
-                g.drawImage(this.getGroup() == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, this.getX(), this.getY(), null);
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(group == Group.GOOD ? Color.RED : Color.BLUE);
+        g.fillRect(x, y, 40, 40);
+        g.setColor(c);
         move();
     }
 
@@ -109,7 +99,7 @@ public class Tank extends BaseTank {
     private void boundsCheck() {
         if (this.getX() < 0) this.setX(0);
         if (this.getY() < 30) this.setY(30);
-        if (this.getX() > TankFrame.GAME_WIDTH - Tank.WIDTH) this.setX(TankFrame.GAME_WIDTH - Tank.WIDTH);
-        if (this.getY() > TankFrame.GAME_HEIGHT - Tank.HEIGHT) this.setY(TankFrame.GAME_HEIGHT - Tank.HEIGHT);
+        if (this.getX() > TankFrame.GAME_WIDTH - RectTank.WIDTH) this.setX(TankFrame.GAME_WIDTH - RectTank.WIDTH);
+        if (this.getY() > TankFrame.GAME_HEIGHT - RectTank.HEIGHT) this.setY(TankFrame.GAME_HEIGHT - RectTank.HEIGHT);
     }
 }

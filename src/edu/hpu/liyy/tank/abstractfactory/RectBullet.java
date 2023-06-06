@@ -1,11 +1,10 @@
-package edu.hpu.liyy.tank;
+package edu.hpu.liyy.tank.abstractfactory;
 
-import edu.hpu.liyy.tank.abstractfactory.BaseBullet;
-import edu.hpu.liyy.tank.abstractfactory.BaseTank;
+import edu.hpu.liyy.tank.*;
 
 import java.awt.*;
 
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet {
 
     private static final int SPEED = 10;
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
@@ -17,7 +16,7 @@ public class Bullet extends BaseBullet {
     private Group group = Group.BAD;
     Rectangle rect = new Rectangle();
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -44,20 +43,10 @@ public class Bullet extends BaseBullet {
         if (!living) {
             tf.bullets.remove(this);
         }
-        switch (dir) {
-            case LEFT:
-                g.drawImage(ResourceMgr.bulletL, x, y, null);
-                break;
-            case UP:
-                g.drawImage(ResourceMgr.bulletU, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(ResourceMgr.bulletR, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.bulletD, x, y, null);
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x, y, 20, 20);
+        g.setColor(c);
         move();
     }
 
