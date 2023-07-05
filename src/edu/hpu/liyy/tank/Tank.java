@@ -1,11 +1,15 @@
 package edu.hpu.liyy.tank;
 
+import edu.hpu.liyy.tank.strategy.DefaultFireStrategy;
+import edu.hpu.liyy.tank.strategy.FireStrategy;
+
 import java.awt.*;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends GameObject {
 
     int x, y;
+    int oldX, oldY;
     Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
@@ -14,7 +18,7 @@ public class Tank {
     private boolean living = true;
     private final Random random = new Random();
     Group group = Group.BAD;
-    public Rectangle rect = new Rectangle();
+    private Rectangle rect = new Rectangle();
     FireStrategy fs;
     GameModel gm;
 
@@ -74,9 +78,33 @@ public class Tank {
         this.group = group;
     }
 
+    public Dir getDir() {
+        return dir;
+    }
+
+    public GameModel getGameModel() {
+        return gm;
+    }
+
+    public int getOldX() {
+        return oldX;
+    }
+
+    public void setOldX(int oldX) {
+        this.oldX = oldX;
+    }
+
+    public int getOldY() {
+        return oldY;
+    }
+
+    public void setOldY(int oldY) {
+        this.oldY = oldY;
+    }
+
     public void paint(Graphics g) {
         if (!living) {
-            gm.tanks.remove(this);
+            gm.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -121,6 +149,8 @@ public class Tank {
 
         boundsCheck();
 
+        oldX = rect.x;
+        oldY = rect.y;
         rect.x = this.x;
         rect.y = this.y;
     }
@@ -142,5 +172,18 @@ public class Tank {
         if (this.y < 30) y = 30;
         if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH) x = TankFrame.GAME_WIDTH - Tank.WIDTH;
         if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT;
+    }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void stop() {
+        moving = false;
+    }
+
+    public void resetLastPosition() {
+        this.x = this.oldX;
+        this.y = this.oldY;
     }
 }

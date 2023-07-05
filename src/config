@@ -6,5 +6,8 @@ gameWidth=1080
 gameHeight=720
 
 #fireStrategy
-goodFS=edu.hpu.liyy.tank.FourDirFireStrategy
-badFS=edu.hou.liyy.tank.DefaultFireStrategy
+goodFS=edu.hpu.liyy.tank.strategy.FourDirFireStrategy
+badFS=edu.hou.liyy.tank.strategy.DefaultFireStrategy
+
+#colliders
+colliders=edu.hpu.liyy.tank.cor.BulletTankCollider,edu.hpu.liyy.tank.cor.TankTankCollider
