@@ -1,9 +1,6 @@
 package edu.hpu.liyy.tank.cor;
 
-import edu.hpu.liyy.tank.Bullet;
-import edu.hpu.liyy.tank.Explode;
-import edu.hpu.liyy.tank.GameObject;
-import edu.hpu.liyy.tank.Tank;
+import edu.hpu.liyy.tank.*;
 
 /**
  * 子弹和坦克相撞
@@ -22,7 +19,7 @@ public class BulletTankCollider implements Collider {
                 bullet.die();
                 int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
                 int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-                tank.getGameModel().add(new Explode(eX, eY, tank.getGameModel()));
+                new Explode(eX, eY);
                 return false;
             }
         } else if (o1 instanceof Tank && o2 instanceof Bullet) {

@@ -20,14 +20,12 @@ public class Tank extends GameObject {
     Group group = Group.BAD;
     private Rectangle rect = new Rectangle();
     FireStrategy fs;
-    GameModel gm;
 
-    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
 
         rect.x = this.x;
         rect.y = this.y;
@@ -44,6 +42,7 @@ public class Tank extends GameObject {
         } else {
             fs = new DefaultFireStrategy();
         }
+        GameModel.getInstance().add(this);
     }
 
     public void setDir(Dir dir) {
@@ -82,10 +81,6 @@ public class Tank extends GameObject {
         return dir;
     }
 
-    public GameModel getGameModel() {
-        return gm;
-    }
-
     public int getOldX() {
         return oldX;
     }
@@ -104,7 +99,7 @@ public class Tank extends GameObject {
 
     public void paint(Graphics g) {
         if (!living) {
-            gm.remove(this);
+            GameModel.getInstance().remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -124,6 +119,9 @@ public class Tank extends GameObject {
     }
 
     private void move() {
+        //记录移动之前的位置
+        oldX = x;
+        oldY = y;
         if (!moving) return;
         switch (dir) {
             case LEFT:
@@ -149,8 +147,6 @@ public class Tank extends GameObject {
 
         boundsCheck();
 
-        oldX = rect.x;
-        oldY = rect.y;
         rect.x = this.x;
         rect.y = this.y;
     }

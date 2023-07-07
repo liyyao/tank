@@ -10,4 +10,4 @@ goodFS=edu.hpu.liyy.tank.strategy.FourDirFireStrategy
 badFS=edu.hou.liyy.tank.strategy.DefaultFireStrategy
 
 #colliders
-colliders=edu.hpu.liyy.tank.cor.BulletTankCollider,edu.hpu.liyy.tank.cor.TankTankCollider
+colliders=edu.hpu.liyy.tank.cor.BulletTankCollider,edu.hpu.liyy.tank.cor.TankTankCollider,edu.hpu.liyy.tank.cor.BulletWallCollider,edu.hpu.liyy.tank.cor.TankWallCollider
