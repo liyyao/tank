@@ -7,8 +7,8 @@ import edu.hpu.liyy.tank.Tank;
 public class FourDirFireStrategy implements FireStrategy {
     @Override
     public void fire(Tank t) {
-        int bX = t.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bY = t.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+        int bX = t.getX() + t.getWidth() / 2 - Bullet.WIDTH / 2;
+        int bY = t.getY() + t.getHeight() / 2 - Bullet.HEIGHT / 2;
 
         Dir[] dirs = Dir.values();
         for (Dir dir : dirs) {

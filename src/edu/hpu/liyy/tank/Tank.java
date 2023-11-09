@@ -8,12 +8,9 @@ import java.util.Random;
 
 public class Tank extends GameObject {
 
-    int x, y;
     int oldX, oldY;
     Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
-    public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
-    public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
     private boolean moving = true;
     private boolean living = true;
     private final Random random = new Random();
@@ -24,13 +21,15 @@ public class Tank extends GameObject {
     public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
+        this.width = ResourceMgr.goodTankU.getWidth();
+        this.height = ResourceMgr.goodTankU.getHeight();
         this.dir = dir;
         this.group = group;
 
         rect.x = this.x;
         rect.y = this.y;
-        rect.width = WIDTH;
-        rect.height = HEIGHT;
+        rect.width = this.width;
+        rect.height = this.height;
 
         if (group == Group.GOOD) {
             String goodFS = (String) PropertyMgr.get("goodFS");
@@ -166,8 +165,8 @@ public class Tank extends GameObject {
     private void boundsCheck() {
         if (this.x < 0) x = 0;
         if (this.y < 30) y = 30;
-        if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH) x = TankFrame.GAME_WIDTH - Tank.WIDTH;
-        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT;
+        if (this.x > TankFrame.GAME_WIDTH - this.width) x = TankFrame.GAME_WIDTH - this.width;
+        if (this.y > TankFrame.GAME_HEIGHT - this.height) y = TankFrame.GAME_HEIGHT - this.height;
     }
 
     public Rectangle getRect() {
@@ -181,5 +180,13 @@ public class Tank extends GameObject {
     public void resetLastPosition() {
         this.x = this.oldX;
         this.y = this.oldY;
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
     }
 }

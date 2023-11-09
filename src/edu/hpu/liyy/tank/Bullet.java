@@ -7,7 +7,6 @@ public class Bullet extends GameObject {
     private static final int SPEED = 10;
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
-    private int x, y;
     private Dir dir;
     private boolean living = true;
     private Group group = Group.BAD;
@@ -16,13 +15,15 @@ public class Bullet extends GameObject {
     public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
+        this.width = WIDTH;
+        this.height = HEIGHT;
         this.dir = dir;
         this.group = group;
 
         rect.x = this.x;
         rect.y = this.y;
-        rect.width = WIDTH;
-        rect.height = HEIGHT;
+        rect.width = this.width;
+        rect.height = this.height;
         GameModel.getInstance().add(this);
     }
 

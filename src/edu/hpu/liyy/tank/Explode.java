@@ -7,13 +7,14 @@ public class Explode extends GameObject {
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
 
-    private int x, y;
     //private boolean living = true;
     private int step = 0;
 
     public Explode(int x, int y) {
         this.x = x;
         this.y = y;
+        this.width = WIDTH;
+        this.height = HEIGHT;
         GameModel.getInstance().add(this);
     }
 

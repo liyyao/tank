@@ -3,6 +3,6 @@ package edu.hpu.liyy.tank;
 import java.awt.*;
 
 public abstract class GameObject {
-    int x, y;
+    public int x, y, width, height;
     public abstract void paint(Graphics g);
 }
